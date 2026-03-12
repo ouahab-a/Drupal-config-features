@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.blog.body
     - field.field.node.blog.field_blog_category
+    - field.field.node.blog.field_blog_subtitle
     - field.field.node.blog.field_image
     - image.style.thumbnail
     - node.type.blog
@@ -40,6 +41,14 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_blog_subtitle:
+    type: string_textfield
+    weight: 122
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
