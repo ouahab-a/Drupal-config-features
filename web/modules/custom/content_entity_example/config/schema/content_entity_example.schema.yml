@@ -1,0 +1,37 @@
+content_entity_examplesettings:
+  type: config_object
+  label: "Transcode profile settings"
+  mapping:
+    profile_name:
+      type: string
+      label: "Profile name"
+    enable_transcoding:
+      type: boolean
+      label: "Enable transcoding?"
+content_entity_example.info.settings:
+  type: config_object
+  label: "Demo module settings."
+  mapping:
+    demo_label:
+      type: string
+      label: "A demo label"
+    demo_checkbox:
+      type: boolean
+      label: "A demo checkbox"
+content_entity_example.video_preset.*:
+  type: config_entity
+  label: Video preset
+  mapping:
+    id:
+      type: string
+      label: ID
+    label:
+      type: label
+      label: Label
+    uuid:
+      type: string
+    description:
+      type: string
+    codec:
+      type: label
+      label: "Codec"

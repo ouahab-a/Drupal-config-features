@@ -1,0 +1,314 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides a news entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+use Drupal\content_entity_example\Entity\Node\ArticleNode;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function content_entity_example_theme(): array
+{
+  return [
+    'news' => ['render element' => 'elements'],
+    'crud_example' =>[
+      'variables' => [
+        'crud_result' => '',
+      ]
+    ]
+  ];
+}
+
+/**
+ * Prepares variables for news templates.
+ *
+ * Default template: news.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the news information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_news(array &$variables): void
+{
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Prepares variables for CRUD example templates.
+ *
+ * Default template: crud-example.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - crud_result: The CRUD operation result.
+ */
+function template_preprocess_crud_example(array &$variables): void
+{
+  // Set a default value for crud_result if not already set.
+  if (empty($variables['crud_result'])) {
+    $variables['crud_result'] = 'No result available';
+  }
+
+  // Invoke a custom hook to allow other modules to alter the crud_result.
+  \Drupal::moduleHandler()->alter('content_entity_example_crud_result', $variables['crud_result']);
+}
+
+/**
+ * Implements hook_content_entity_example_crud_result_alter().
+ */
+function content_entity_example_content_entity_example_crud_result_alter(&$crud_result): void
+{
+  // Example: Add a prefix to the crud_result if it has content.
+  if (!empty($crud_result)) {
+    $crud_result = '[PROCESSED] ' . $crud_result;
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function content_entity_example_user_cancel($edit, UserInterface $account, $method): void
+{
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish news.
+      $storage = \Drupal::entityTypeManager()->getStorage('news');
+      $news_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($news_ids) as $news) {
+        $news->set('status', FALSE)->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize news.
+      $storage = \Drupal::entityTypeManager()->getStorage('news');
+      $news_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($news_ids) as $news) {
+        $news->setOwnerId(0)->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function content_entity_example_user_predelete(UserInterface $account): void
+{
+  // Delete news that belong to this account.
+  $storage = \Drupal::entityTypeManager()->getStorage('news');
+  $news_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+  $storage->delete(
+    $storage->loadMultiple($news_ids)
+  );
+  // Delete old revisions.
+  $news_ids = $storage->getQuery()
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+  foreach (array_keys($news_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}
+
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function content_entity_example_entity_bundle_info_alter(array &$bundles): void
+{
+  // Register ArticleNode as the bundle class for the 'article' node type.
+  if (isset($bundles['node']['article'])) {
+    // Tell Drupal to use the ArticleNode class for nodes of bundle 'article'.
+    $bundles['node']['article']['class'] = ArticleNode::class;
+  }
+
+  // You can register additional bundle classes in the same way:
+  // if (isset($bundles['node']['event'])) {
+  //   $bundles['node']['event']['class'] = \Drupal\mymodule\Entity\Node\EventNode::class;
+  // }
+}
+
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function content_entity_example_preprocess_html(array &$variables): void
+{
+  $route_match = \Drupal::routeMatch();
+  $node = $route_match->getParameter('node');
+
+  if ($node instanceof NodeInterface && method_exists($node, 'buildShareMeta')) {
+    // Build the JSON-LD script tag render array.
+    $element = $node->buildShareMeta();
+
+    // Attach it to the HTML head.
+    $variables['#attached']['html_head'][] = [
+      $element,
+      'mymodule_share_meta',
+    ];
+  }
+}
+
+//================================== Day 2: Work with Hooks ==================================
+
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function content_entity_example_entity_base_field_info_alter(array &$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type): void {
+  // Cibler uniquement l'entité User
+  if ($entity_type->id() !== 'user') {
+    return;
+  }
+
+  if (isset($fields['pass'])) {
+    $fields['pass']->addConstraint('PasswordPolicyConstraint');
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function content_entity_example_entity_base_field_info(EntityTypeInterface $entity_type): array {
+  $fields = [];
+
+  // On ajoute uniquement sur notre entité 'news'
+  if ($entity_type->id() === 'news') {
+    $fields['source_url'] = BaseFieldDefinition::create('uri')
+      ->setLabel(t('Source URL'))
+      ->setDescription(t('The original source of this news item.'))
+      ->setRevisionable(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'uri_link',
+        'weight' => 10,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'uri',
+        'weight' => 10,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+  }
+
+  return $fields;
+}
+
+// content_entity_example.install
+
+/**
+ * Ajoute source_url comme champ requis sur news.
+ */
+function content_entity_example_update_10001(array &$sandbox): string {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+
+  // Récupérer la définition du champ depuis le storage
+  $field_definition = $definition_update_manager
+    ->getFieldStorageDefinition('source_url', 'news');
+
+  if ($field_definition) {
+    $field_definition->setRequired(TRUE);
+    $definition_update_manager->updateFieldStorageDefinition($field_definition);
+  }
+
+  return 'Champ source_url rendu obligatoire sur news.';
+}
+
+/**
+ * Peuple source_url avec une valeur par défaut pour les news existantes.
+ */
+function content_entity_example_update_10002(array &$sandbox): string {
+  $storage = \Drupal::entityTypeManager()->getStorage('news');
+
+  // Traitement par batch pour éviter timeout
+  if (!isset($sandbox['total'])) {
+    $sandbox['ids'] = $storage->getQuery()
+      ->accessCheck(FALSE)
+      ->notExists('source_url')
+      ->execute();
+    $sandbox['total'] = count($sandbox['ids']);
+    $sandbox['processed'] = 0;
+  }
+
+  $batch = array_splice($sandbox['ids'], 0, 25);
+  foreach ($storage->loadMultiple($batch) as $news) {
+    $news->set('source_url', 'https://source-inconnue.fr/' . $news->id());
+    $news->save();
+    $sandbox['processed']++;
+  }
+
+  $sandbox['#finished'] = $sandbox['total']
+    ? $sandbox['processed'] / $sandbox['total']
+    : 1;
+
+  return "Traité {$sandbox['processed']} / {$sandbox['total']} news.";
+}
+
+// content_entity_example.install
+
+/**
+ * Implements hook_install().
+ */
+function content_entity_example_install(): void {
+  // Créer la config par défaut du module
+  \Drupal::configFactory()
+    ->getEditable('content_entity_example.settings')
+    ->set('enable_transcoding', FALSE)
+    ->set('video_preset_id', '')
+    ->save();
+
+  // Créer un VideoPreset par défaut
+  $preset = \Drupal::entityTypeManager()
+    ->getStorage('video_preset')
+    ->create([
+      'id'          => 'default',
+      'label'       => 'Default Preset',
+      'codec'       => 'h264',
+      'description' => 'Créé automatiquement à l\'installation.',
+      'status'      => TRUE,
+    ]);
+  $preset->save();
+
+  \Drupal::logger('content_entity_example')
+    ->info('Module installé — VideoPreset "default" créé.');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function content_entity_example_uninstall(): void {
+  \Drupal::configFactory()
+    ->getEditable('content_entity_example.settings')
+    ->delete();
+
+  \Drupal::logger('content_entity_example')
+    ->info('Module désinstallé — config supprimée.');
+}

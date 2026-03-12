@@ -1,0 +1,22 @@
+# All action links for this module
+
+content_entity_example.contact_add:
+  # Which route will be called by the link
+  route_name: content_entity_example.contact_add
+  title: 'Add contact'
+
+  # Where will the link appear, defined by route name.
+  appears_on:
+    - entity.content_entity_example_contact.collection
+    - entity.content_entity_example_contact.canonical
+news.add_form:
+  title: 'Add news'
+  route_name: entity.news.add_form
+  appears_on:
+    - entity.news.collection
+
+entity.video_preset.add_form:
+  route_name: 'entity.video_preset.add_form'
+  title: 'Add video preset'
+  appears_on:
+    - entity.video_preset.collection
