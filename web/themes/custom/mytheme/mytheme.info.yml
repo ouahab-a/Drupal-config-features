@@ -1,0 +1,7 @@
+name: My Theme
+type: theme
+base theme: olivero
+description: Custom subtheme based on Olivero
+core_version_requirement: ^10 || ^11
+libraries:
+  - mytheme/global
