@@ -1,0 +1,20 @@
+uuid: 1f6f225d-2ee9-4243-9093-2ae6b4622719
+langcode: en
+status: true
+dependencies:
+  module:
+    - eu_cookie_compliance
+  theme:
+    - mytheme
+id: mytheme_eucookiecompliancebuttonblock
+theme: mytheme
+region: sidebar_first
+weight: -10
+provider: null
+plugin: eu_cookie_compliance_button_block
+settings:
+  id: eu_cookie_compliance_button_block
+  label: 'EU Cookie Compliance Button Block'
+  label_display: visible
+  provider: eu_cookie_compliance
+visibility: {  }

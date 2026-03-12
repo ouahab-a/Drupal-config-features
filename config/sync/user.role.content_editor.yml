@@ -1,0 +1,58 @@
+uuid: 7460379e-5f21-4daa-bd94-4fba2f974ba8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - node.type.blog
+    - node.type.page
+    - taxonomy.vocabulary.tags
+  module:
+    - comment
+    - contextual
+    - eu_cookie_compliance
+    - file
+    - node
+    - path
+    - system
+    - taxonomy
+    - toolbar
+_core:
+  default_config_hash: e_wG1u7SrGaJbY2-Szgbgl-c8T3kdirU3uTNq2c_QJQ
+id: content_editor
+label: 'Content editor'
+weight: -7
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access toolbar'
+  - 'administer url aliases'
+  - 'create article content'
+  - 'create blog content'
+  - 'create page content'
+  - 'create terms in tags'
+  - 'create url aliases'
+  - 'delete any blog content'
+  - 'delete article revisions'
+  - 'delete blog revisions'
+  - 'delete own article content'
+  - 'delete own blog content'
+  - 'delete own files'
+  - 'delete own page content'
+  - 'delete page revisions'
+  - 'display eu cookie compliance popup'
+  - 'edit any blog content'
+  - 'edit own article content'
+  - 'edit own blog content'
+  - 'edit own comments'
+  - 'edit own page content'
+  - 'edit terms in tags'
+  - 'revert all revisions'
+  - 'revert blog revisions'
+  - 'view all revisions'
+  - 'view blog revisions'
+  - 'view own unpublished content'
+  - 'view the administration theme'

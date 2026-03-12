@@ -1,0 +1,13 @@
+uuid: 47af45d1-bbc9-4c60-a268-a98bc199833a
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_entity_example
+_core:
+  default_config_hash: CcP9V04ja4XKdlKs3w_xAojG3XsT-SCXdciq_lkh6vY
+id: news_save_action
+label: 'Save news'
+type: news
+plugin: 'entity:save_action:news'
+configuration: {  }

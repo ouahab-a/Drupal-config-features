@@ -1,0 +1,31 @@
+uuid: a8aedc7a-64d8-4657-8bae-14b85e927153
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_photo
+    - media.type.document
+    - media.type.image
+    - node.type.article
+id: node.article.field_photo
+field_name: field_photo
+entity_type: node
+bundle: article
+label: Photo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: document
+field_type: entity_reference

@@ -1,0 +1,10 @@
+uuid: 2e40fbe8-5c89-4b3c-b853-c510bc57141d
+langcode: en
+status: true
+dependencies: {  }
+id: our_group
+label: 'Our Group'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

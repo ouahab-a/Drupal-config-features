@@ -1,0 +1,15 @@
+uuid: 0fe47827-8137-4ac4-bb22-ceb0366f9bb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+id: games_server
+name: 'Games Server'
+description: ''
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 1
+  matching: words
+  phrase: bigram

@@ -1,0 +1,17 @@
+uuid: 1358acb7-2020-4d30-a925-990541bd69cd
+langcode: en
+status: true
+dependencies:
+  module:
+    - anytown
+title: 'Default cron handler'
+id: anytown_cron
+weight: 0
+module: anytown
+callback: 'anytown#cron'
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

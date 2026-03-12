@@ -1,0 +1,13 @@
+uuid: 93e112e4-e890-40e1-bd5c-4235a2cd693b
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_entity_example
+_core:
+  default_config_hash: tcvKWeoftb67jFgPY_0TQU4zOGm5KrN_IYQCHS3E8os
+id: news_delete_action
+label: 'Delete news'
+type: news
+plugin: 'entity:delete_action:news'
+configuration: {  }

@@ -1,0 +1,55 @@
+uuid: ea2abb8d-490a-468a-9d70-3431938a28c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_game_category
+    - search_api.server.games_server
+  module:
+    - node
+id: games_index
+name: 'Games Index'
+description: ''
+read_only: false
+field_settings:
+  field_game_category:
+    label: Category
+    datasource_id: 'entity:node'
+    property_path: field_game_category
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_game_category
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - games
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  custom_value: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: true
+  index_directly: true
+  track_changes_in_references: true
+server: games_server

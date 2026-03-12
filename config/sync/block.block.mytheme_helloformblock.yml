@@ -1,0 +1,25 @@
+uuid: 44d2dbea-6fd9-42bc-9f84-b826a404ee15
+langcode: en
+status: true
+dependencies:
+  module:
+    - hello_world
+    - system
+  theme:
+    - mytheme
+id: mytheme_helloformblock
+theme: mytheme
+region: content
+weight: 0
+provider: null
+plugin: hello_form_block
+settings:
+  id: hello_form_block
+  label: 'Hello Form Block'
+  label_display: visible
+  provider: hello_world
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/hello\r\n/*/hello\r\n/*/hello/*"

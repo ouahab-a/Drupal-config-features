@@ -1,0 +1,53 @@
+uuid: 35cc321d-1474-46c9-b5b7-8695e5a5784a
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.news_teaser_image
+  theme:
+    - olivero
+id: news_teaser_responsive
+label: 'News Teaser Responsive'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.grid-max
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.grid-md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.nav
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.nav-md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.xl
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.lg
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: news_teaser_image
+    breakpoint_id: olivero.sm
+    multiplier: 1x
+breakpoint_group: olivero
+fallback_image_style: news_teaser_image

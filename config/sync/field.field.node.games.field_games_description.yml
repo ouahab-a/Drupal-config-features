@@ -1,0 +1,26 @@
+uuid: 23d8916c-325c-4b85-865a-75f978fba5da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_games_description
+    - filter.format.basic_html
+    - node.type.games
+  module:
+    - text
+id: node.games.field_games_description
+field_name: field_games_description
+entity_type: node
+bundle: games
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats:
+    - basic_html
+field_type: text_with_summary

@@ -1,0 +1,11 @@
+uuid: 4325a6ed-cddf-4dc0-a0c3-e1fb307dba4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vendor
+id: node.vendor
+target_entity_type_id: node
+target_bundle: vendor
+default_langcode: site_default
+language_alterable: false

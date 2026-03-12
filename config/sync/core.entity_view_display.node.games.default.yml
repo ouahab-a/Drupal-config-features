@@ -1,0 +1,49 @@
+uuid: 28d9c0e3-4c52-49f9-bece-dc5c00f2e784
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.games.field_game_category
+    - field.field.node.games.field_games_description
+    - field.field.node.games.field_games_image
+    - node.type.games
+  module:
+    - text
+    - user
+id: node.games.default
+targetEntityType: node
+bundle: games
+mode: default
+content:
+  field_game_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_games_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_games_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,41 @@
+uuid: 0fc5a47c-d91e-4603-8b25-26a545fb168e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_components
+    - node.type.page
+    - paragraphs.paragraphs_type.our_group
+    - paragraphs.paragraphs_type.slider
+    - paragraphs.paragraphs_type.testimonial
+  module:
+    - entity_reference_revisions
+id: node.page.field_components
+field_name: field_components
+entity_type: node
+bundle: page
+label: Components
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      slider: slider
+      our_group: our_group
+      testimonial: testimonial
+    negate: 0
+    target_bundles_drag_drop:
+      our_group:
+        weight: -6
+        enabled: true
+      slider:
+        weight: -7
+        enabled: true
+      testimonial:
+        weight: -5
+        enabled: true
+field_type: entity_reference_revisions

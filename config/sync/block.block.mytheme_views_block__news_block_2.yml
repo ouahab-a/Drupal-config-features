@@ -1,0 +1,30 @@
+uuid: 53a958df-ffcd-4177-8278-e128056442f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.news
+  module:
+    - system
+    - views
+  theme:
+    - mytheme
+id: mytheme_views_block__news_block_2
+theme: mytheme
+region: content
+weight: -9
+provider: null
+plugin: 'views_block:news-block_2'
+settings:
+  id: 'views_block:news-block_2'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /france-24-news

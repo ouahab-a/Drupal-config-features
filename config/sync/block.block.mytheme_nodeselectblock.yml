@@ -1,0 +1,25 @@
+uuid: cd26e76b-7aca-4507-ac82-e622b488271c
+langcode: en
+status: true
+dependencies:
+  module:
+    - hello_world
+    - system
+  theme:
+    - mytheme
+id: mytheme_nodeselectblock
+theme: mytheme
+region: content
+weight: 0
+provider: null
+plugin: node_select_block
+settings:
+  id: node_select_block
+  label: 'Node Select Block'
+  label_display: visible
+  provider: hello_world
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/hello\r\n/*/hello\r\n/*/hello/*"

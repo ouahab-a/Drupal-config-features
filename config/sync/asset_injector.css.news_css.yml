@@ -1,0 +1,18 @@
+uuid: 7817fc88-3f97-4f40-93d1-d82f706ef688
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: news_css
+label: 'News Css'
+code: 'view, .view-content { display: block !important; }'
+media: all
+preprocess: true
+conditions:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /news
+contexts: {  }
+conditions_require_all: true

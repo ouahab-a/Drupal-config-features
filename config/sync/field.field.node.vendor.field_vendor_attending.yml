@@ -1,0 +1,21 @@
+uuid: 6a245c53-725b-431d-84e3-201293af7c44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vendor_attending
+    - node.type.vendor
+id: node.vendor.field_vendor_attending
+field_name: field_vendor_attending
+entity_type: node
+bundle: vendor
+label: 'Vendor Attending'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

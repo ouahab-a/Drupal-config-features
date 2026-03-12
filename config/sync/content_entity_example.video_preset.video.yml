@@ -1,0 +1,10 @@
+uuid: 7a76a4cd-f0dc-42fd-a83b-39d2077c5f2f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ElQ4os1Y49uvMqpTknzXVEYhatB2_KitqU0wEPq1b7I
+id: video
+label: Video
+description: 'Video preser description'
+codec: h264

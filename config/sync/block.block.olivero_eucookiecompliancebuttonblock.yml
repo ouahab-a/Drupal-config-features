@@ -1,0 +1,20 @@
+uuid: c1414023-09e7-49bd-a800-09f44fdbc4af
+langcode: en
+status: true
+dependencies:
+  module:
+    - eu_cookie_compliance
+  theme:
+    - olivero
+id: olivero_eucookiecompliancebuttonblock
+theme: olivero
+region: footer_bottom
+weight: 0
+provider: null
+plugin: eu_cookie_compliance_button_block
+settings:
+  id: eu_cookie_compliance_button_block
+  label: 'EU Cookie Compliance Button Block'
+  label_display: visible
+  provider: eu_cookie_compliance
+visibility: {  }

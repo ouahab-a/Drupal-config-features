@@ -1,0 +1,33 @@
+uuid: ef8be2e1-41e6-4b12-b687-b047b4b98b31
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.game
+  module:
+    - node
+    - views
+  theme:
+    - mytheme
+id: mytheme_views_block__game_block_1
+theme: mytheme
+region: content
+weight: -7
+provider: null
+plugin: 'views_block:game-block_1'
+settings:
+  id: 'views_block:game-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      games: games

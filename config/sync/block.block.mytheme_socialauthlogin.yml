@@ -1,0 +1,25 @@
+uuid: 92fd91eb-5172-4767-9b6a-578b0fdd78f7
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_auth
+    - system
+  theme:
+    - mytheme
+id: mytheme_socialauthlogin
+theme: mytheme
+region: sidebar_first
+weight: -7
+provider: null
+plugin: social_auth_login
+settings:
+  id: social_auth_login
+  label: 'Social Auth Login'
+  label_display: visible
+  provider: social_auth
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/user/login\r\n/user/register"

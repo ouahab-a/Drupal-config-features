@@ -1,0 +1,32 @@
+uuid: a4c52744-9b65-4110-99d5-4b80b6fb7e03
+langcode: en
+status: true
+dependencies: {  }
+id: GTM-WL8W46F3.699e29479b1cd5.51585287
+label: GTM-WL8W46F3
+weight: 0
+tag_container_ids:
+  - GTM-WL8W46F3
+advanced_settings:
+  consent_mode: false
+  gtm:
+    GTM-WL8W46F3:
+      data_layer: dataLayer
+      include_classes: false
+      allowlist_classes: ''
+      blocklist_classes: ''
+      include_environment: false
+      environment_id: ''
+      environment_token: ''
+dimensions_metrics: {  }
+conditions: {  }
+events:
+  generate_lead:
+    value: ''
+    currency: ''
+  search: {  }
+  custom: {  }
+  login:
+    method: CMS
+  sign_up:
+    method: CMS

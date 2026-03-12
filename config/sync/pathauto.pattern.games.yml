@@ -1,0 +1,22 @@
+uuid: a14402a8-fc5c-4322-966b-3d33d907c7af
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: games
+label: Games
+type: 'canonical_entities:node'
+pattern: '/games/[node:title]'
+selection_criteria:
+  0067c500-de8b-45f4-8ca7-81beb31cc90c:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 0067c500-de8b-45f4-8ca7-81beb31cc90c
+    context_mapping:
+      node: node
+    bundles:
+      games: games
+selection_logic: and
+weight: -5
+relationships: {  }

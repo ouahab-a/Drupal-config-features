@@ -1,0 +1,3 @@
+display_forecast: 1
+location: '10000'
+weather_closures: "This is a config for weather forecast.\r\nThis is config to be displayed without changing the code."
