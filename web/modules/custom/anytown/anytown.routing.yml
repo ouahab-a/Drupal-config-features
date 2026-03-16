@@ -24,3 +24,12 @@ anytown.attending:
     _controller: '\Drupal\anytown\Controller\Attending::build'
   requirements:
     _permission: 'access content'
+
+anytown.articles_api:
+  path: '/api/articles'
+  defaults:
+    _title: 'Articles Api'
+    _controller: '\Drupal\anytown\Controller\ArticlesApiController::list'
+  requirements:
+    _permission: 'access content'
+  

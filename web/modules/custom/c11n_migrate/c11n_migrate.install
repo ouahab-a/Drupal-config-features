@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Handle install / uninstall events for the module.
+ */
+
+use Drupal\Core\File\FileSystemInterface;
+/**
+ * Implements hook_install().
+ *
+ * Copies migration source files to the public:// directory.
+ */
+function c11n_migrate_install()
+{
+
+  $file_system = \Drupal::service('file_system');
+
+  // Prepare destination directory.
+  $dest_directory = 'public://import/program';
+  $file_system->prepareDirectory(
+    $dest_directory,
+    FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS
+  );
+
+  // Copy files to destination directory.
+  foreach (_c11n_migrate_source_files() as $filename => $file) {
+    $destination = $dest_directory . '/' . $file->filename;
+    $file_system->copy($file->uri, $destination, FileSystemInterface::EXISTS_REPLACE);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Deletes migration source files created during installation.
+ */
+function c11n_migrate_uninstall()
+{
+
+  $file_system = \Drupal::service('file_system');
+  $dest_directory = 'public://import/program';
+
+  if ($file_system->prepareDirectory($dest_directory, 0)) {
+    $file_system->deleteRecursive($dest_directory);
+  }
+}
+
+/**
+ * Get a list of import source files.
+ *
+ * @return array
+ *   Import source files.
+ */
+function _c11n_migrate_source_files()
+{
+
+  $dirname = \Drupal::service('extension.list.module')
+    ->getPath('c11n_migrate') . '/import/program';
+
+  $file_system = \Drupal::service('file_system');
+
+  return $file_system->scanDirectory($dirname, '/.*/', [
+    'recurse' => FALSE,
+    'key' => 'filename',
+  ]);
+}
